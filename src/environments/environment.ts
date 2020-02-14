@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  client: 'TESTAPP',
+  clientPass: '12345',
+  urlEndPointAuth: 'http://localhost:8099'
 };
 
 /*
