@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+// Formularios
+import { FormsModule } from '@angular/forms';
+
 // Peticiones HTTP
 import { HttpClientModule } from '@angular/common/http';
 
@@ -17,6 +20,8 @@ import { HomeComponent } from './core/pages/home/home.component';
 
 // Servicios
 import { AuthService } from './core/services/security/auth.service';
+import { NavigationService } from './core/services/navigation.service';
+import { LoginComponent } from './core/pages/login/login.component';
 
 
 @NgModule({
@@ -27,14 +32,18 @@ import { AuthService } from './core/services/security/auth.service';
     MenuleftComponent,
     FooterComponent,
     HomeComponent,
-    AuthService
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    NavigationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
