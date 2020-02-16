@@ -8,14 +8,13 @@
       <div class="card-body login-card-body">
         <p class="login-box-msg">Entrar en la aplicación</p>
   
-        <form method="POST">
+        <form [formGroup]="formGroup">
           <div class="input-group mb-3">
-            <input  [(ngModel)]="usuario.username"
+            <input  
+                    formControlName="username"
                     type="text" 
                     class="form-control" 
                     placeholder="Usuario" 
-                    id="username"
-                    name="username"
             >
             <div class="input-group-append">
               <div class="input-group-text">
@@ -24,13 +23,10 @@
             </div>
           </div>
           <div class="input-group mb-3">
-            <input  [(ngModel)]="usuario.password"
-                    type="password" 
+            <input  type="password" 
                     class="form-control" 
                     placeholder="Contraseña"
-                    id="password"
-                    name="password"
-            
+                    formControlName="password"
             >
             <div class="input-group-append">
               <div class="input-group-text">
@@ -49,12 +45,15 @@
             </div>
             <!-- /.col -->
             <div class="col-4">
-              <input type="button" 
-                      class="btn btn-primary btn-block" 
+              <input 
+                      [disabled]="formGroup.invalid"
+                      type="submit" 
+                      value="Enviar" 
+                      class="btn-block"
                       (click)="login()"
-                      value = "Entrar"
-                      >
+                      />
             </div>
+            
             <!-- /.col -->
           </div>
         </form>
