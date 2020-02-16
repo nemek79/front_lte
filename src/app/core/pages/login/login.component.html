@@ -33,6 +33,7 @@
                 <span class="fas fa-lock"></span>
               </div>
             </div>
+            <span>{{ getError('password')}}</span>
           </div>
           <div class="row">
             <div class="col-8">
@@ -46,7 +47,6 @@
             <!-- /.col -->
             <div class="col-4">
               <input 
-                      [disabled]="formGroup.invalid"
                       type="submit" 
                       value="Enviar" 
                       class="btn-block"
