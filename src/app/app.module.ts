@@ -4,6 +4,10 @@ import { NgModule } from '@angular/core';
 // Formularios
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+// Interceptors
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoaderInterceptorService } from './core/interceptors/LoaderInterceptor.service';
+
 // Peticiones HTTP
 import { HttpClientModule } from '@angular/common/http';
 
@@ -17,11 +21,15 @@ import { MenutopComponent } from './core/components/menutop/menutop.component';
 import { MenuleftComponent } from './core/components/menuleft/menuleft.component';
 import { FooterComponent } from './core/components/footer/footer.component';
 import { HomeComponent } from './core/pages/home/home.component';
+import { LoginComponent } from './core/pages/login/login.component';
 
 // Servicios
 import { AuthService } from './core/services/security/auth.service';
 import { NavigationService } from './core/services/navigation.service';
-import { LoginComponent } from './core/pages/login/login.component';
+import { LoaderService } from './core/services/loader.service';
+import { LoaderComponent } from './core/components/loader/loader.component';
+import { BtnloaderComponent } from './core/components/btnloader/btnloader.component';
+import { DatatableComponent } from './core/components/datatable/datatable.component';
 
 
 @NgModule({
@@ -32,7 +40,10 @@ import { LoginComponent } from './core/pages/login/login.component';
     MenuleftComponent,
     FooterComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    LoaderComponent,
+    BtnloaderComponent,
+    DatatableComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +54,13 @@ import { LoginComponent } from './core/pages/login/login.component';
   ],
   providers: [
     AuthService,
-    NavigationService
+    NavigationService,
+    LoaderService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

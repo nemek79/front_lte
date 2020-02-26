@@ -23,6 +23,8 @@ export class LoginComponent implements OnInit {
 
   public usuario: Usuario;
   public formGroup: FormGroup;
+  public modify: boolean = false;
+  public loading = false;
 
   constructor(
     private navSRV: NavigationService,
@@ -40,6 +42,8 @@ export class LoginComponent implements OnInit {
 
   login(): void {
 
+    this.modify = true;
+
     if (!this.checkFormulario()) {
 
       return;
@@ -48,11 +52,15 @@ export class LoginComponent implements OnInit {
     this.usuario.username = this.formGroup.value.username;
     this.usuario.password = this.formGroup.value.password;
 
+    this.loading = true;
+
     this.authSRV.login(this.usuario).subscribe( response => {
 
 
       this.authSRV.guardarUsuario(response.access_token);
       this.authSRV.guardarToken(response.access_token);
+
+      this.loading = false;
 
     }, err => {
 
@@ -69,6 +77,7 @@ export class LoginComponent implements OnInit {
         });
       }
 
+      this.loading = false;
     });
 
   }
@@ -79,20 +88,26 @@ export class LoginComponent implements OnInit {
     if (control.touched && control.errors != null) {
       error = JSON.stringify(control.errors);
     }
+
     return error;
+  }
+
+  public displayCssFor(field: string|Array<string>): string {
+
+    let classError = '';
+
+    // this.formGroup.get(field).invalid && this.modify && (this.formGroup.get(field).touched || this.formGroup.get(field).dirty)
+
+    if (this.formGroup.get(field).invalid && this.modify) {
+      classError = 'is-invalid';
+    }
+
+    return classError;
   }
 
   private checkFormulario() {
 
     if (this.formGroup.status === 'INVALID') {
-
-      Object.keys(this.formGroup.controls).forEach(key => {
-        
-        if (this.formGroup.get(key).status === 'INVALID') {
-          console.log('campo: '+key+' es invalido')
-        }
-      
-      });
 
       this.Toast.fire({
         type: 'warning',
@@ -108,7 +123,7 @@ export class LoginComponent implements OnInit {
   private buildForm() {
     this.formGroup = this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', [Validators.required, this.validatePassword]]
+      password: ['', [Validators.required, Validators.minLength(5), this.validatePassword]]
     });
   }
 
@@ -116,12 +131,14 @@ export class LoginComponent implements OnInit {
 
     const password = control.value;
     let error = null;
+    /*
     if (!password.includes('$')) {
       error = { ...error, dollar: 'needs a dollar symbol' };
     }
     if (!parseFloat(password[0])) {
       error = { ...error, number: 'must start with a number' };
     }
+    */
     return error;
   }
 

@@ -8,16 +8,23 @@ import { NavigationService } from '../../services/navigation.service';
 })
 export class HomeComponent implements OnInit {
 
+  public loading = false;
+
   constructor(
     private navSRV: NavigationService
-  ) { 
+  ) {
 
     this.navSRV.hideLogin();
   }
 
   ngOnInit() {
 
-    
+
+  }
+
+  public handleClickButton(event) {
+
+    this.loading = !this.loading;
 
   }
 

@@ -1,0 +1,10 @@
+<button 
+  type="button" 
+  class="btn {{classbtn}}"
+  (click)="handleClick($event)"
+  >
+  <i *ngIf="posleft" class="{{iconbtn}}"></i>
+  {{label}}
+  <i *ngIf="posright" class="{{iconbtn}}"></i>
+</button>
+

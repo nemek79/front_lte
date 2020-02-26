@@ -1,0 +1,37 @@
+==============================================================
+### INPUTS
+==============================================================
+
+- config: json<dtConfig>
+- header: json[<dtItemHeader>]
+- data: json[<dtItem>]
+- footer: json[<dtButton>]
+
+
+
+==============================================================
+### MODELS
+==============================================================
+
+- dtConfig
+
+  * headerBG: color
+  * headerFS: header Font-size
+  * bodyBG: color
+  * bodyFS: body Font-size
+  * footerBG: color
+  * footerFS: footer font-size
+
+- dtItemHeader
+
+  * value: string
+  * itemBG: color
+  * align: horizontal align
+  * itemFS: item font-size
+  * itemFW: item font-weight
+  * type: tipo de dato (number, char, date)
+
+- dtButton
+
+  * id: string (add,update,delete,excel,pdf...)
+  * click: function

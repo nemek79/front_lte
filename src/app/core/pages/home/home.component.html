@@ -34,6 +34,15 @@
         </div>
         <div class="card-body">
           Start creating your amazing application!
+          <vrl-btnloader 
+            label="prueba"
+            loading="{{loading}}" 
+            iconbtn="fas fa-home"
+            classbtn="btn-outline-secondary"
+            iconpos="right"
+            (click)="handleClickButton($event)" 
+          >
+          </vrl-btnloader>
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
@@ -42,6 +51,8 @@
         <!-- /.card-footer-->
       </div>
       <!-- /.card -->
+
+      <vrl-datatable></vrl-datatable>
 
     </section>
     <!-- /.content -->
