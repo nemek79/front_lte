@@ -5,7 +5,8 @@
 - config: json<dtConfig>
 - header: json[<dtItemHeader>]
 - data: json[<dtItem>]
-- footer: json[<dtButton>]
+- footer: json[<dtFooter>]
+- buttons: json[<dtButton>]
 
 
 
@@ -15,14 +16,22 @@
 
 - dtConfig
 
-  * headerBG: color
-  * headerFS: header Font-size
-  * bodyBG: color
-  * bodyFS: body Font-size
-  * footerBG: color
-  * footerFS: footer font-size
+  * titulo: string
+  * headerClass: string
+  * bodyClass: string
+  * footerClass: string
 
 - dtItemHeader
+
+  * id: string -> este es el identificador del data (tiene que coincidir con la key del item data)
+  * value: string -> esto es lo que se quiere mostrar en la vista
+  * itemBG: color
+  * align: horizontal align
+  * itemFS: item font-size
+  * itemFW: item font-weight
+  * type: tipo de dato (number, char, date)
+
+- dtFooter
 
   * value: string
   * itemBG: color

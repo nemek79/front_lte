@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'vrl-datatable',
@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DatatableComponent implements OnInit {
 
+  // valores recogidos desde el back
+  @Input() config = [];
+  @Input() header = [];
+  @Input() data = [];
+  @Input() footer = [];
+  @Input() buttons = [];
+
   constructor() { }
 
   ngOnInit() {
+
   }
+
 
 }
