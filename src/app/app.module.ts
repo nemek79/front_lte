@@ -30,6 +30,7 @@ import { LoaderService } from './core/services/loader.service';
 import { LoaderComponent } from './core/components/loader/loader.component';
 import { BtnloaderComponent } from './core/components/btnloader/btnloader.component';
 import { DatatableComponent } from './core/components/datatable/datatable.component';
+import { Datatable2Component } from './core/components/datatable2/datatable2.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { DatatableComponent } from './core/components/datatable/datatable.compon
     LoginComponent,
     LoaderComponent,
     BtnloaderComponent,
-    DatatableComponent
+    DatatableComponent,
+    Datatable2Component
   ],
   imports: [
     BrowserModule,

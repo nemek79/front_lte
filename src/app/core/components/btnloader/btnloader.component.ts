@@ -68,7 +68,6 @@ export class BtnloaderComponent implements OnInit, OnChanges {
 
   handleClick(event): void {
 
-    console.log(event)
     this.clicked.emit(event);
 
   }

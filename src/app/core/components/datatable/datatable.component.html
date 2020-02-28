@@ -7,14 +7,29 @@
         </div>
         <div class="card-body">
           <div class="table-responsive-sm">
-            <table id="example2" class="table table-bordered table-hover">
+            <table id="vrlTable" #dataTable class="table table-bordered table-hover">
               <thead>
                 <tr>
+                  <th>
+                    <div class="icheck-primary d-inline">
+                      <input type="checkbox" id="check_all" (click)="allSelected($event)">
+                      <label for="check_all">
+                        Todos
+                      </label>
+                    </div>
+                  </th>
                   <th *ngFor="let itemHeader of header">{{itemHeader.value}}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let itemData of data">
+                  <td>
+                    <div class="icheck-primary d-inline">
+                      <input type="checkbox" id="check_{{itemData['id'].value}}" (click)="elementSelected(itemData['id'].value)">
+                      <label for="check_{{itemData['id'].value}}">
+                      </label>
+                    </div>
+                  </td>
                   <td 
                     *ngFor="let itemHeader of header"
                     [ngClass]="{'error-data-item': itemData.type == 'error'}"
@@ -33,9 +48,9 @@
             </table>
           </div>
         </div>
-        <div class="card-footer">
+        <div class="card-footer clearfix">
         
-          <vrl-btnloader 
+          <vrl-btnloader *ngIf="buttons['delete'].show"
             label="Eliminar"
             loading=false
             iconbtn="fas fa-erase"
@@ -45,7 +60,7 @@
           >
           </vrl-btnloader>
 
-          <vrl-btnloader 
+          <vrl-btnloader  *ngIf="buttons['update'].show"
             label="Editar"
             loading=false
             iconbtn="fas fa-save"
@@ -55,11 +70,11 @@
           >
           </vrl-btnloader>
 
-          <vrl-btnloader 
+          <vrl-btnloader  *ngIf="buttons['add'].show"
             label="Nuevo"
             loading=false
             iconbtn="fas fa-file"
-            classbtn="btn-outline-primary btn-actions float-right"
+            classbtn="btn-outline-primary float-right"
             iconpos="right"
             (click)="handleClickAdd($event)" 
           >

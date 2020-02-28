@@ -20,14 +20,21 @@
     <!-- Main content -->
     <section class="content">
 
-      <vrl-datatable
-        [header] = "headerConfig"
-        [data]="items"
-        [config]="tableConfig"
+      <vrl-datatable2
+        [data]="tableCfg"
+      >
+      </vrl-datatable2
       >
 
-      </vrl-datatable
-      >
+      <!-- <vrl-datatable
+      [header] = "headerConfig"
+      [data]="items"
+      [config]="tableConfig"
+      [buttons]="tableButtons"
+      class = "prueba"
+      (btnClick) = "handleClickButtons($event)"
+    >
+    </vrl-datatable> -->
 
     </section>
     <!-- /.content -->

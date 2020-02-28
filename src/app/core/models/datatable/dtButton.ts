@@ -1,6 +1,6 @@
 export class DtButton {
 
   id: string;
-  click: string;
+  label: string;
 
 }
