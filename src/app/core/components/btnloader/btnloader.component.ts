@@ -8,10 +8,12 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange
 export class BtnloaderComponent implements OnInit, OnChanges {
 
   @Input() label = '';
+  @Input() id = '';
   @Input() iconbtn = '';
   @Input() loading = false;
   @Input() classbtn = '';
   @Input() iconpos = ''; // left / right
+  @Input() btndisabled = 'true';
 
   @Output() clicked = new EventEmitter<any[]>();
 
@@ -44,6 +46,7 @@ export class BtnloaderComponent implements OnInit, OnChanges {
       this.posleft = false;
       this.posright = false;
     }
+
 
   }
 

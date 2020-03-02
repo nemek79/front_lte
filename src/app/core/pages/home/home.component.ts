@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
 
   public items = [
     {
+      check: {value: false},
       id: {value: '71882560Q', type: 'string'},
       nombre: {type: 'string', value: 'David'} ,
       apellidos: {type: 'string', value: 'Alonso Sánchez'},
@@ -31,6 +32,7 @@ export class HomeComponent implements OnInit {
       edad: {type: 'number', value: 41}
     },
     {
+      check: {value: false},
       id: {value: 'Y4428449C', type: 'string'},
       nombre: {type: 'string', value: 'Maira Ebelina'} ,
       apellidos: {type: 'string', value: 'Escalante Reyes'},
@@ -78,6 +80,7 @@ export class HomeComponent implements OnInit {
     // ];
     this.tableCfg.data = [
       {
+        check: false,
         id: '71882560Q',
         nombre: 'David' ,
         apellidos: 'Alonso Sánchez',
@@ -85,6 +88,7 @@ export class HomeComponent implements OnInit {
         edad: 41
       },
       {
+        check: false,
         id: 'Y4428449C',
         nombre: 'Maira Ebelina' ,
         apellidos: 'Escalante Reyes',

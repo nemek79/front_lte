@@ -2,6 +2,9 @@
   type="button" 
   class="btn {{classbtn}}"
   (click)="handleClick($event)"
+  id="{{id}}"
+  name="{{id}}"
+  [disabled] = "btndisabled === 'true' ? true : false"
   >
   <i *ngIf="posleft" class="{{iconbtn}}"></i>
   {{label}}
