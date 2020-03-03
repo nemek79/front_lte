@@ -22,15 +22,16 @@ import { MenuleftComponent } from './core/components/menuleft/menuleft.component
 import { FooterComponent } from './core/components/footer/footer.component';
 import { HomeComponent } from './core/pages/home/home.component';
 import { LoginComponent } from './core/pages/login/login.component';
+import { LoaderComponent } from './core/components/loader/loader.component';
+import { BtnloaderComponent } from './core/components/btnloader/btnloader.component';
+import { DatatableComponent } from './core/components/datatable/datatable.component';
+import { Datatable2Component } from './core/components/datatable2/datatable2.component';
 
 // Servicios
 import { AuthService } from './core/services/security/auth.service';
 import { NavigationService } from './core/services/navigation.service';
 import { LoaderService } from './core/services/loader.service';
-import { LoaderComponent } from './core/components/loader/loader.component';
-import { BtnloaderComponent } from './core/components/btnloader/btnloader.component';
-import { DatatableComponent } from './core/components/datatable/datatable.component';
-import { Datatable2Component } from './core/components/datatable2/datatable2.component';
+import { DatatableService } from './core/services/datatable.service';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { Datatable2Component } from './core/components/datatable2/datatable2.com
     AuthService,
     NavigationService,
     LoaderService,
+    DatatableService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptorService,

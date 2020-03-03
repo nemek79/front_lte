@@ -1,3 +1,5 @@
+import { DataTableCfg } from './../../models/datatable/datatablecfg';
+import { DatatableService } from './../../services/datatable.service';
 import { DataAction } from './../../models/datatable/dataAction';
 import { DataResponse } from './../../models/datatable/dataResponse';
 import { Component, OnInit, ViewChild, Input, Inject } from '@angular/core';
@@ -13,46 +15,60 @@ declare var $;
 })
 export class Datatable2Component implements OnInit {
 
-  @Input() data: DataResponse; // datos para configurar la tabla
-  @Input() showSelect = false;
-  @Input() multiSelect = false;
+  //@Input() data: DataResponse; // datos para configurar la tabla
+
+  @Input() config: DataTableCfg;
 
   dataTable: any;
   dtOptions: any;
   tableData = [];
 
-  buttons = [];
-
   showButtons = {
-    upd: true,
+    upd: false,
     add: false,
-    del: true
+    del: false
   };
-
 
   @ViewChild('dataTable', {static: true}) table;
 
   public selectedItems = [];
 
   constructor(
+    private dataSRV: DatatableService,
     @Inject(DOCUMENT) private document: Document
   ) { }
 
   ngOnInit() {
 
-    // datos prueba
-    this.buttons.push('delete');
+    // comprobar qué botones hay que mostrar
+    for (const button of this.config.buttons) {
 
-    // si no tenemos seleccionado el select, el multiselect no se puede seleccionar
-    if (!this.showSelect) {
-      this.multiSelect = false;
+      switch (button) {
+
+        case 'add':
+          this.showButtons.add = true;
+          break;
+        case 'upd':
+          this.showButtons.upd = true;
+          break;
+        case 'del':
+          this.showButtons.del = true;
+          break;
+
+        default:
+          break;
+      }
+
     }
 
-    this.cargarTabla();
+    // si no tenemos seleccionado el select, el multiselect no se puede seleccionar
+    if (!this.config.showSelect) {
+      this.config.multiSelect = false;
+    }
+
+    this.initHeader();
 
   }
-
-
 
   public selectItems(id: any) {
 
@@ -83,7 +99,7 @@ export class Datatable2Component implements OnInit {
 
       } else {
 
-        if (!this.multiSelect) {
+        if (!this.config.multiSelect) {
 
           if (this.selectedItems.length > 0) {
             const idBorrar = this.selectedItems[0];
@@ -151,101 +167,103 @@ export class Datatable2Component implements OnInit {
     dataResponse.action = 'del';
     dataResponse.data = this.selectedItems;
 
-    console.log(dataResponse)
+    // hay que eliminar los items de la tabla (por ahora), lo que habría que hacer es un delete
+    // a la url y despues borrar
+
+    console.log(this.dataTable)
 
   }
 
-  private cargarTabla() {
+  private cargarTabla(header: any) {
 
-  // aquí obtenemos la información que queremos mostar en la tabla
-    // se debería pasar al componenete a través de un input que debería
-    // extender el interface dataResponse
-    this.tableData = this.data.data;
-    // configuramos las opciones de la tabla
-    this.dtOptions = {
-      data: this.tableData, // los datos a mostrar en la tabla
-      createdRow(row, data, index) {
-        // console.log($('td', row))
-        // $('td', row).eq(0).css('color', 'red');
-      },
-      pageLength: 25,
-      language: {
-        processing:     'cargando...',
-        search:         'Buscar',
-        lengthMenu:    'Mostrar _MENU_ registros',
-        info:           'Mostrando _START_ a _END_ de _TOTAL_ registros',
-        infoEmpty:      'Mostrando 0 a 0 de 0 registros',
-        infoFiltered:   '(filtrado de _MAX_ elementos en total)',
-        infoPostFix:    '',
-        loadingRecords: 'Cargando datos...',
-        zeroRecords:    'No se han encontrado datos.',
-        emptyTable:     'No se han encontrado datos',
-        paginate: {
-            first:      'Primer',
-            previous:   'Anterior',
-            next:       'Siguiente',
-            last:       'Último'
+    // aquí obtenemos la información que queremos mostar en la tabla
+    this.dataSRV.getContactos(this.config.url).subscribe( response => {
+
+      this.tableData = response;
+
+      // configuramos las opciones de la tabla
+      this.dtOptions = {
+        data: this.tableData, // los datos a mostrar en la tabla
+        createdRow(row, data, index) {
+          // console.log($('td', row))
+          // $('td', row).eq(0).css('color', 'red');
         },
-        aria: {
-            sortAscending:  '',
-            sortDescending: ''
-        }
-      },
-      headerCallback( nHead, aData, iStart, iEnd, aiDisplay ) {
-
-        let checkbox = '<div class="icheck-primary d-inline">';
-        checkbox += '<input type="checkbox" id="check_all" value="all">';
-        checkbox += '<label for="check_all">Todos</label>';
-        checkbox += '</div>';
-
-        $(nHead).find('th').eq(0).html(checkbox);
-      },
-      columnDefs: [
-        { targets: [0], title: 'Todos', orderable: false, data: 'check',
-          render( data, type, row, meta ) {
-
-            let checkbox = '<div class="icheck-primary d-inline">';
-            checkbox += '<input type="checkbox" id="check_' + row.id + '" value="' + row.id + '">';
-            checkbox += '<label for="check_' + row.id + '"></label>';
-            checkbox += '</div>';
-
-            return checkbox;
+        pageLength: 25,
+        language: {
+          processing:     'cargando...',
+          search:         'Buscar',
+          lengthMenu:    'Mostrar _MENU_ registros',
+          info:           'Mostrando _START_ a _END_ de _TOTAL_ registros',
+          infoEmpty:      'Mostrando 0 a 0 de 0 registros',
+          infoFiltered:   '(filtrado de _MAX_ elementos en total)',
+          infoPostFix:    '',
+          loadingRecords: 'Cargando datos...',
+          zeroRecords:    'No se han encontrado datos.',
+          emptyTable:     'No se han encontrado datos',
+          paginate: {
+              first:      'Primer',
+              previous:   'Anterior',
+              next:       'Siguiente',
+              last:       'Último'
           },
-          visible: this.showSelect
-        },
-        { targets: [1], title: 'ID', data: 'id'},
-        { targets: [2], title: 'Nombre', data: 'nombre'},
-        { targets: [3], title: 'Apellidos', data: 'apellidos'},
-        { targets: [4], title: 'E-Mail', data: 'email'},
-        { targets: [5], title: 'Edad', data: 'edad',
-          className: 'table-column-number',
-          orderable: false,
-          createdCell(td, cellData, rowData, row, col) {
-            // console.log(td);
+          aria: {
+              sortAscending:  '',
+              sortDescending: ''
           }
-        }
-      ]
-  };
+        },
+        headerCallback( nHead, aData, iStart, iEnd, aiDisplay ) {
 
-    this.dataTable = $(this.table.nativeElement);
-    this.dataTable.DataTable(this.dtOptions);
+          let checkbox = '<div class="icheck-primary d-inline">';
+          checkbox += '<input type="checkbox" id="check_all" value="all">';
+          checkbox += '<label for="check_all">Todos</label>';
+          checkbox += '</div>';
+
+          $(nHead).find('th').eq(0).html(checkbox);
+        },
+        columnDefs: header
+      };
+
+      this.dataTable = $(this.table.nativeElement);
+      this.dataTable.DataTable(this.dtOptions);
 
 
-    const inputs  = document.querySelectorAll('input[type="checkbox"]');
+      const inputs  = document.querySelectorAll('input[type="checkbox"]');
 
-    inputs.forEach(input => {
+      inputs.forEach(input => {
 
-      input.addEventListener('click', (event) => {
+        input.addEventListener('click', (event) => {
 
-        this.selectItems(input.getAttribute('value'));
+          this.selectItems(input.getAttribute('value'));
 
-        }
-      );
+          }
+        );
+
+      });
 
     });
 
-
   }
 
 
+  private initHeader() {
+
+    let header = [];
+
+    const selectColumn = { targets: [0], title: 'Todos', orderable: false, data: 'check',
+      render( data, type, row, meta ) {
+
+        let checkbox = '<div class="icheck-primary d-inline">';
+        checkbox += '<input type="checkbox" id="check_' + row.id + '" value="' + row.id + '">';
+        checkbox += '<label for="check_' + row.id + '"></label>';
+        checkbox += '</div>';
+
+        return checkbox;
+      }
+    };
+
+    header.push(selectColumn);
+
+    this.cargarTabla(header);
+
+  }
 }

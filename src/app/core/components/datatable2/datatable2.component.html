@@ -13,7 +13,7 @@
         </div>
         <div class="card-footer clearfix">
 
-          <vrl-btnloader *ngIf="showButtons['del']"
+          <vrl-btnloader *ngIf="showButtons.del"
             id="btnDel"
             label="Eliminar"
             loading=false
@@ -25,7 +25,7 @@
           >
           </vrl-btnloader>
 
-          <vrl-btnloader 
+          <vrl-btnloader *ngIf="showButtons.upd"
             id="btnUpd"
             label="Modificar"
             loading=false
@@ -37,7 +37,7 @@
           >
           </vrl-btnloader>
 
-          <vrl-btnloader 
+          <vrl-btnloader *ngIf="showButtons.add"
             id="btnAdd"
             label="Nuevo"
             loading=false
