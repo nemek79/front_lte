@@ -71,13 +71,15 @@ export class Datatable2Component implements OnInit {
 
     if (id === 'all') {
 
+      let value = $(this.document.getElementById('check_all')).prop('checked');
+
       const inputs  = document.querySelectorAll('input[type="checkbox"]');
 
       this.selectedItems = [];
 
       inputs.forEach(input => {
 
-        $(this.document.getElementById(input.getAttribute('id'))).prop('checked', true);
+        $(this.document.getElementById(input.getAttribute('id'))).prop('checked', value);
         this.selectedItems.push(input.getAttribute('value'));
 
       });
@@ -131,6 +133,7 @@ export class Datatable2Component implements OnInit {
       }
 
     }
+
   }
 
   // control sobre el click de los botones
@@ -160,20 +163,50 @@ export class Datatable2Component implements OnInit {
 
   private deleteItems() {
 
-    // hay que eliminar los items de la tabla (por ahora), lo que habría que hacer es un delete
-    // a la url y despues borrar
-
     if (this.selectedItems.length === 1) {
 
       this.dataSRV.deleteContacto(this.config.url, this.selectedItems[0]).subscribe(
         response => {
+
+          this.selectedItems = [];
+
           this.dataSRV.getContactos(this.config.url).subscribe( data => {
-            this.tableData = data;
-            console.log(this.dataTable)
+            this.dataTable.DataTable().clear();
+            this.dataTable.DataTable().rows.add(data);
+            this.dataTable.DataTable().draw();
+
+            this.loadDataEvents();
+
           });
         }
       );
 
+    } else {
+
+      this.dataSRV.deleteContactos(this.config.url, this.selectedItems).subscribe(
+        response => {
+
+          this.selectedItems = [];
+
+          this.dataSRV.getContactos(this.config.url).subscribe( data => {
+            this.dataTable.DataTable().clear();
+            this.dataTable.DataTable().rows.add(data);
+            this.dataTable.DataTable().draw();
+
+            this.loadDataEvents();
+
+          });
+        }
+      );
+
+    }
+
+    // desactivamos los botones de upd y del
+    if (this.showButtons.upd) {
+      $(this.document.getElementById('btnUpd').childNodes[0]).prop('disabled', true);
+    }
+    if (this.showButtons.del) {
+      $(this.document.getElementById('btnDel').childNodes[0]).prop('disabled', true);
     }
 
   }
@@ -230,19 +263,7 @@ export class Datatable2Component implements OnInit {
       this.dataTable = $(this.table.nativeElement);
       this.dataTable.DataTable(this.dtOptions);
 
-
-      const inputs  = document.querySelectorAll('input[type="checkbox"]');
-
-      inputs.forEach(input => {
-
-        input.addEventListener('click', (event) => {
-
-          this.selectItems(input.getAttribute('value'));
-
-          }
-        );
-
-      });
+      this.loadDataEvents();
 
     });
 
@@ -254,7 +275,7 @@ export class Datatable2Component implements OnInit {
     let headers = [];
     let header: Header;
 
-    const selectColumn = { targets: [0], title: 'Todos', orderable: false, data: 'check',
+    const selectColumn = { targets: [0], title: 'Todos',
       render( data, type, row, meta ) {
 
         let checkbox = '<div class="icheck-primary d-inline">';
@@ -263,7 +284,7 @@ export class Datatable2Component implements OnInit {
         checkbox += '</div>';
 
         return checkbox;
-      }
+      }, orderable: false
     };
 
     headers.push(selectColumn);
@@ -288,4 +309,23 @@ export class Datatable2Component implements OnInit {
     this.cargarTabla(headers);
 
   }
+
+
+  private loadDataEvents() {
+
+    const inputs  = document.querySelectorAll('input[type="checkbox"]');
+
+    inputs.forEach(input => {
+
+      input.addEventListener('click', (event) => {
+
+        this.selectItems(input.getAttribute('value'));
+
+        }
+      );
+
+    });
+
+  }
+
 }

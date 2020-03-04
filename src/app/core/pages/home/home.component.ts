@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
     this.dtCfg.headers = [
       { targets: [1], title: 'ID', data: 'id'},
       { targets: [2], title: 'Nombre', data: 'nombre'},
-      { targets: [3], title: 'Apellidos', data: 'apellidos'},
+      { targets: [3], title: 'Apellidos', data: 'apellidos' , orderable: false},
       { targets: [4], title: 'E-Mail', data: 'email'},
       { targets: [5], title: 'Edad', data: 'edad', className: 'table-column-number', orderable: false}
     ];

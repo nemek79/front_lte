@@ -19,7 +19,7 @@ export class DatatableService {
 
   deleteContactos(urlEndpoint: string, ids: string[]): Observable<any> {
 
-    let httpParams = new HttpParams().set('ids', ids.join(', '));
+    let httpParams = new HttpParams().set('ids', ids.join(','));
     let options = { params: httpParams };
 
     return this.http.delete(urlEndpoint, options);
