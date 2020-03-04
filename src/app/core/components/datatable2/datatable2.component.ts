@@ -84,7 +84,11 @@ export class Datatable2Component implements OnInit {
 
       });
 
-      this.selectedItems.splice(0, 1);
+      if (value) {
+        this.selectedItems.splice(0, 1);
+      } else {
+        this.selectedItems = [];
+      }
 
     } else {
 
