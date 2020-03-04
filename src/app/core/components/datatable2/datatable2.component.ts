@@ -3,6 +3,7 @@ import { DataTableCfg } from './../../models/datatable/datatablecfg';
 import { DatatableService } from './../../services/datatable.service';
 import { Component, OnInit, ViewChild, Input, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 declare var $;
 
@@ -19,6 +20,9 @@ export class Datatable2Component implements OnInit {
   dataTable: any;
   dtOptions: any;
   tableData = [];
+  winModal: any;
+
+  public formGroup: FormGroup;
 
   showButtons = {
     upd: false,
@@ -27,11 +31,13 @@ export class Datatable2Component implements OnInit {
   };
 
   @ViewChild('dataTable', {static: true}) table;
+  @ViewChild('mdlInfo', {static: true}) modal;
 
   public selectedItems = [];
 
   constructor(
     private dataSRV: DatatableService,
+    private formBuilder: FormBuilder,
     @Inject(DOCUMENT) private document: Document
   ) { }
 
@@ -64,6 +70,8 @@ export class Datatable2Component implements OnInit {
     }
 
     this.initHeader();
+
+    $(this.document.getElementById('mdlInfo')).show();
 
   }
 
@@ -146,6 +154,8 @@ export class Datatable2Component implements OnInit {
     switch (id) {
 
       case 'add':
+
+        this.winModal.modal('toggle')
 
         break;
 
@@ -330,6 +340,15 @@ export class Datatable2Component implements OnInit {
 
     });
 
+  }
+
+
+  // MODAL
+
+  private buildForm() {
+    this.formGroup = this.formBuilder.group({
+      username: ['', Validators.required],
+    });
   }
 
 }
