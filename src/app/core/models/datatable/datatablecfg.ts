@@ -4,5 +4,6 @@ export class DataTableCfg {
   showSelect: boolean = false;
   multiSelect: boolean = false;
   buttons: any = [];
+  headers: any = [];
 
 }

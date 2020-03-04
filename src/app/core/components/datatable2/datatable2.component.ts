@@ -1,7 +1,6 @@
+import { Header } from './../../models/datatable/header';
 import { DataTableCfg } from './../../models/datatable/datatablecfg';
 import { DatatableService } from './../../services/datatable.service';
-import { DataAction } from './../../models/datatable/dataAction';
-import { DataResponse } from './../../models/datatable/dataResponse';
 import { Component, OnInit, ViewChild, Input, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
@@ -14,8 +13,6 @@ declare var $;
   styleUrls: ['./datatable2.component.css']
 })
 export class Datatable2Component implements OnInit {
-
-  //@Input() data: DataResponse; // datos para configurar la tabla
 
   @Input() config: DataTableCfg;
 
@@ -163,14 +160,21 @@ export class Datatable2Component implements OnInit {
 
   private deleteItems() {
 
-    let dataResponse = new DataAction();
-    dataResponse.action = 'del';
-    dataResponse.data = this.selectedItems;
-
     // hay que eliminar los items de la tabla (por ahora), lo que habría que hacer es un delete
     // a la url y despues borrar
 
-    console.log(this.dataTable)
+    if (this.selectedItems.length === 1) {
+
+      this.dataSRV.deleteContacto(this.config.url, this.selectedItems[0]).subscribe(
+        response => {
+          this.dataSRV.getContactos(this.config.url).subscribe( data => {
+            this.tableData = data;
+            console.log(this.dataTable)
+          });
+        }
+      );
+
+    }
 
   }
 
@@ -247,7 +251,8 @@ export class Datatable2Component implements OnInit {
 
   private initHeader() {
 
-    let header = [];
+    let headers = [];
+    let header: Header;
 
     const selectColumn = { targets: [0], title: 'Todos', orderable: false, data: 'check',
       render( data, type, row, meta ) {
@@ -261,9 +266,26 @@ export class Datatable2Component implements OnInit {
       }
     };
 
-    header.push(selectColumn);
+    headers.push(selectColumn);
 
-    this.cargarTabla(header);
+    let index = 1;
+
+    for (const obj of this.config.headers) {
+
+      header = new Header();
+
+      header.targets = [index];
+      header.title = obj.title;
+      header.data = obj.data;
+      header.className = obj.className;
+      header.orderable = obj.orderable;
+
+      headers.push(header);
+      index++;
+
+    }
+
+    this.cargarTabla(headers);
 
   }
 }
