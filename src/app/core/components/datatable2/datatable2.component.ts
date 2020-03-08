@@ -31,7 +31,6 @@ export class Datatable2Component implements OnInit {
   };
 
   @ViewChild('dataTable', {static: true}) table;
-  @ViewChild('mdlInfo', {static: true}) modal;
 
   public selectedItems = [];
 
@@ -70,8 +69,7 @@ export class Datatable2Component implements OnInit {
     }
 
     this.initHeader();
-
-    $(this.document.getElementById('mdlInfo')).show();
+    this.winModal = $(this.document.getElementById('dtModal'));
 
   }
 
@@ -155,7 +153,7 @@ export class Datatable2Component implements OnInit {
 
       case 'add':
 
-        this.winModal.modal('toggle')
+        this.winModal.modal('show');
 
         break;
 

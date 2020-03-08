@@ -1,17 +1,9 @@
 {
-  "personas" : [
-    {
-      "check": false,
-      "id": "71882560Q",
-      "nombre": "David" ,
-      "apellidos": "Alonso Sánchez",
-      "email": "davidalonso79@gmail.com",
-      "edad": 41
-    },
+  "personas": [
     {
       "check": false,
       "id": "Y4428449C",
-      "nombre": "Maira Ebelina" ,
+      "nombre": "Maira Ebelina",
       "apellidos": "Escalante Reyes",
       "email": "mairaescalante1912@gmail.com",
       "edad": 33
@@ -19,7 +11,7 @@
     {
       "check": false,
       "id": "XXXXXXXXXXX",
-      "nombre": "Elsa Daniela" ,
+      "nombre": "Elsa Daniela",
       "apellidos": "Lorenzo Escalante",
       "email": "elsadaniela2015@gmail.com",
       "edad": 4
@@ -27,7 +19,7 @@
     {
       "check": false,
       "id": "YYYYYYYYYYY",
-      "nombre": "Alexis Ramón" ,
+      "nombre": "Alexis Ramón",
       "apellidos": "Fernández Rodríguez",
       "email": "alexis@gmail.com",
       "edad": 40

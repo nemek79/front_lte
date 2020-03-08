@@ -1,6 +1,4 @@
 import { DataTableCfg } from './../../models/datatable/datatablecfg';
-import { DataResponse } from './../../models/datatable/dataResponse';
-import { DtConfig } from './../../models/datatable/dtconfig';
 import { Component, OnInit } from '@angular/core';
 import { NavigationService } from '../../services/navigation.service';
 
