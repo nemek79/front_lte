@@ -1,63 +1,65 @@
 <div class="content">
-  <div class="row">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">prueba data table</h3>
-        </div>
-        <div class="card-body">
-          <div class="table-responsive-sm">
-
-            <div class="card card-primary">
-              <form role="form">
-                <div class="card-body">
-                  <ng-content select="[frmFilter]"></ng-content>
-                </div>
-              </form>
-            </div>
-
-            <table #dataTable class="table table-bordered table-hover" style="width:100%">
-            </table>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">prueba data table</h3>
           </div>
-        </div>
-        <div class="card-footer clearfix">
+          <div class="card-body">
+            <div class="table-responsive-sm">
 
-          <vrl-btnloader *ngIf="showButtons.del"
-            id="btnDel"
-            label="Eliminar"
-            loading=false
-            iconbtn="fas fa-trash"
-            classbtn="btn-outline-danger float-right"
-            iconpos="right"
-            (click)='handleClickButton("del")'
-            btndisabled= true
-          >
-          </vrl-btnloader>
+              <div class="card card-primary">
+                <form role="form">
+                  <div class="card-body">
+                    <ng-content select="[frmFilter]"></ng-content>
+                  </div>
+                </form>
+              </div>
 
-          <vrl-btnloader *ngIf="showButtons.upd"
-            id="btnUpd"
-            label="Modificar"
-            loading=false
-            iconbtn="fas fa-edit"
-            classbtn="btn-outline-primary float-right"
-            iconpos="right"
-            (click)='handleClickButton("upd")'
-            btndisabled=true
-          >
-          </vrl-btnloader>
+              <table #dataTable class="table table-bordered table-hover" style="width:100%">
+              </table>
+            </div>
+          </div>
+          <div class="card-footer clearfix">
 
-          <vrl-btnloader *ngIf="showButtons.add"
-            id="btnAdd"
-            label="Nuevo"
-            loading=false
-            iconbtn="fas fa-plus-square"
-            classbtn="btn-outline-primary float-right"
-            iconpos="right"
-            (click)='handleClickButton("add")'
-            btndisabled=false
-          >
-          </vrl-btnloader>
+            <vrl-btnloader *ngIf="showButtons.del"
+              id="btnDel"
+              label="Eliminar"
+              loading=false
+              iconbtn="fas fa-trash"
+              classbtn="btn-outline-danger float-right"
+              iconpos="right"
+              (click)='handleClickButton("del")'
+              btndisabled= true
+            >
+            </vrl-btnloader>
 
+            <vrl-btnloader *ngIf="showButtons.upd"
+              id="btnUpd"
+              label="Modificar"
+              loading=false
+              iconbtn="fas fa-edit"
+              classbtn="btn-outline-primary float-right"
+              iconpos="right"
+              (click)='handleClickButton("upd")'
+              btndisabled=true
+            >
+            </vrl-btnloader>
+
+            <vrl-btnloader *ngIf="showButtons.add"
+              id="btnAdd"
+              label="Nuevo"
+              loading=false
+              iconbtn="fas fa-plus-square"
+              classbtn="btn-outline-primary float-right"
+              iconpos="right"
+              (click)='handleClickButton("add")'
+              btndisabled=false
+            >
+            </vrl-btnloader>
+
+          </div>
         </div>
       </div>
     </div>

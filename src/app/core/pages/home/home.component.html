@@ -1,11 +1,9 @@
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Blank Page</h1>
+            <h1>Home Test Page</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -14,41 +12,24 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
-
-    <!-- Main content -->
     <section class="content">
-
       <vrl-datatable2
         [config]=dtCfg
       >
-
-      <div frmFilter>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+        <div frmFilter>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+          </div>
         </div>
-      </div>
-
-      <div dtModal>
-        <h1>Prueba inclusion</h1>
-        <h2>Espero que esto funcione</h2>
-      </div>
+        <div dtModal>
+          <h1>Prueba inclusion</h1>
+          <h2>Espero que esto funcione</h2>
+        </div>
       </vrl-datatable2>
-
-      <!-- <vrl-datatable
-      [header] = "headerConfig"
-      [data]="items"
-      [config]="tableConfig"
-      [buttons]="tableButtons"
-      class = "prueba"
-      (btnClick) = "handleClickButtons($event)"
-    >
-    </vrl-datatable> -->
-
     </section>
-    <!-- /.content -->
   </div>
 
 
